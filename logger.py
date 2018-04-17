@@ -3,9 +3,8 @@ import os
 import time
 
 
-
+### encapsulate log file writting
 class logger:
-
 
     def __init__(self, task_name):
         logdir = os.path.curdir + "//log"
