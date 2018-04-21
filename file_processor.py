@@ -32,19 +32,19 @@ class file_processor:
         # zip files in src dirs
         src_dir_name = os.path.basename(src_dir)
         zipfile_name = zipfile_header + "_" + src_dir_name + "_" + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))+".zip"
-        zipfile_fullname = src_dir + "\\" + zipfile_name
+        zipfile_fullname = src_dir + "/" + zipfile_name
         LOG.write_info("zipfilename:" + zipfile_fullname)
         self.__zip_dirfiles(src_dir, filelist, zipfile_fullname)
 
         # copy to all des sub dirs
         for cur_desdir in des_dir_list:
             # create des dirs if not exist
-            if not os.path.exists(des_dir_base + "\\" +cur_desdir):
-                os.mkdir(des_dir_base + "\\" +cur_desdir)
-                LOG.write_info("des dir:" + des_dir_base + "\\" +cur_desdir + " created.")
+            if not os.path.exists(des_dir_base + "/" +cur_desdir):
+                os.mkdir(des_dir_base + "/" +cur_desdir)
+                LOG.write_info("des dir:" + des_dir_base + "/" +cur_desdir + " created.")
 
-            tmp_zipfilename = des_dir_base + "\\" +cur_desdir + "\\" + zipfile_name.replace(".zip", "._")
-            des_zipfilename = des_dir_base + "\\" +cur_desdir + "\\" + zipfile_name
+            tmp_zipfilename = des_dir_base + "/" +cur_desdir + "/" + zipfile_name.replace(".zip", "._")
+            des_zipfilename = des_dir_base + "/" +cur_desdir + "/" + zipfile_name
             shutil.copyfile(zipfile_fullname, tmp_zipfilename)
             os.rename(tmp_zipfilename, des_zipfilename)
 
@@ -55,7 +55,7 @@ class file_processor:
         if not os.path.exists(bak_dir):
             os.makedirs(bak_dir)
         for filename in filelist:
-            bak_filename = bak_dir + "\\" + os.path.basename(filename)
+            bak_filename = bak_dir + "/" + os.path.basename(filename)
             shutil.move(filename, bak_filename)
 
         LOG.write_info("complete process_zip_dir srcdir:%s --> des_dir_base:%s " % (src_dir, des_dir_base))
@@ -84,7 +84,7 @@ class file_processor:
             # bak zip file
             if not os.path.exists(bak_dir):
                 os.makedirs(bak_dir)
-            bak_zipfilename = bak_dir + "\\" + os.path.basename(zipfilename)
+            bak_zipfilename = bak_dir + "/" + os.path.basename(zipfilename)
             shutil.move(zipfilename, bak_zipfilename)
 
         LOG.write_info("complete process_unzip_dir srcdir:%s --> des_dir_base:%s " % (src_dir, des_dir))
